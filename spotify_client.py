@@ -19,11 +19,15 @@ def _get_access_token() -> str:
         )
     r = requests.post(
         TOKEN_URL,
-        data={"grant_type": "refresh_token", "refresh_token": refresh_token},
-        auth=(os.environ["SPOTIFY_CLIENT_ID"], os.environ["SPOTIFY_CLIENT_SECRET"]),
+        data={"grant_type": "refresh_token", "refresh_token": refresh_token.strip()},
+        auth=(
+            os.environ["SPOTIFY_CLIENT_ID"].strip(),
+            os.environ["SPOTIFY_CLIENT_SECRET"].strip(),
+        ),
         timeout=15,
     )
-    r.raise_for_status()
+    if not r.ok:
+        raise RuntimeError(f"Spotify token refresh failed ({r.status_code}): {r.text}")
     return r.json()["access_token"]
 
 
