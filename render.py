@@ -42,8 +42,11 @@ def render_html(events: list[dict], total_scanned: int, out_path: Path) -> None:
         for k, g in itertools.groupby(ordered, key=_month_key)
     ]
 
+    venues = sorted({ev["venue"] for ev in ordered})
+
     html = env.get_template("index.html.j2").render(
         events_by_month=grouped,
+        venues=venues,
         total_events=total_scanned,
         matched_count=len(ordered),
         generated_at=datetime.now().strftime("%Y-%m-%d %H:%M"),

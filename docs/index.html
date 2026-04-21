@@ -8,25 +8,89 @@
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans antialiased">
 <main class="max-w-3xl mx-auto p-4 sm:p-8">
-  <header class="mb-8">
+  <header class="mb-6">
     <h1 class="text-3xl font-bold tracking-tight">DC Concerts</h1>
     <p class="text-gray-400 mt-2">
       Upcoming shows at DC-area venues featuring artists in your Spotify library.
     </p>
     <p class="text-sm text-gray-500 mt-2">
-      51 matches from 306 events &middot; updated 2026-04-19 19:45
+      <span id="visible-count">52</span> of 52 matches shown
+      (from 310 events scanned) &middot; updated 2026-04-20 22:01
       &middot; <a href="concerts.ics" class="text-indigo-400 hover:underline">subscribe to calendar feed</a>
     </p>
   </header>
 
-  
   <section class="mb-8">
+    <div class="flex items-center justify-between mb-2">
+      <h2 class="text-xs uppercase tracking-wider text-gray-500">Venues</h2>
+      <div class="flex gap-3 text-xs">
+        <button type="button" id="select-all" class="text-indigo-400 hover:underline">All</button>
+        <button type="button" id="select-none" class="text-indigo-400 hover:underline">None</button>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="9:30 Club" checked>
+        <span>9:30 Club</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="Black Cat" checked>
+        <span>Black Cat</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="Capital One Arena" checked>
+        <span>Capital One Arena</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="Jiffy Lube Live" checked>
+        <span>Jiffy Lube Live</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="Lincoln Theatre" checked>
+        <span>Lincoln Theatre</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="Merriweather Post Pavilion" checked>
+        <span>Merriweather Post Pavilion</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="Nationals Park" checked>
+        <span>Nationals Park</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="The Anthem" checked>
+        <span>The Anthem</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="The Atlantis" checked>
+        <span>The Atlantis</span>
+      </label>
+      
+      <label class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400 has-[:checked]:bg-indigo-700 has-[:checked]:text-white cursor-pointer select-none transition">
+        <input type="checkbox" class="venue-filter sr-only" value="Wolf Trap" checked>
+        <span>Wolf Trap</span>
+      </label>
+      
+    </div>
+  </section>
+
+  
+  <section class="mb-8 month-section">
     <h2 class="text-xl font-semibold text-gray-300 mb-4 border-b border-gray-800 pb-2">
       April 2026
     </h2>
     <ul class="space-y-3">
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Black Cat" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -55,13 +119,13 @@
     </ul>
   </section>
   
-  <section class="mb-8">
+  <section class="mb-8 month-section">
     <h2 class="text-xl font-semibold text-gray-300 mb-4 border-b border-gray-800 pb-2">
       May 2026
     </h2>
     <ul class="space-y-3">
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Anthem" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -87,7 +151,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Lincoln Theatre" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -113,7 +177,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Nationals Park" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -139,7 +203,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -163,7 +227,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Thu</div>
@@ -193,7 +257,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Jiffy Lube Live" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -219,7 +283,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -252,13 +316,13 @@
     </ul>
   </section>
   
-  <section class="mb-8">
+  <section class="mb-8 month-section">
     <h2 class="text-xl font-semibold text-gray-300 mb-4 border-b border-gray-800 pb-2">
       June 2026
     </h2>
     <ul class="space-y-3">
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Mon</div>
@@ -284,7 +348,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Jiffy Lube Live" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -314,7 +378,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Atlantis" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -338,7 +402,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Anthem" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -364,7 +428,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Atlantis" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Mon</div>
@@ -390,7 +454,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Jiffy Lube Live" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -414,7 +478,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -440,7 +504,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -466,7 +530,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -492,7 +556,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Anthem" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -516,7 +580,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -542,7 +606,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -568,7 +632,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -594,7 +658,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -624,7 +688,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -651,13 +715,13 @@
     </ul>
   </section>
   
-  <section class="mb-8">
+  <section class="mb-8 month-section">
     <h2 class="text-xl font-semibold text-gray-300 mb-4 border-b border-gray-800 pb-2">
       July 2026
     </h2>
     <ul class="space-y-3">
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Anthem" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -683,7 +747,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Jiffy Lube Live" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -709,7 +773,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -733,7 +797,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -757,7 +821,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -781,7 +845,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -807,7 +871,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Nationals Park" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -833,7 +897,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -863,7 +927,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Thu</div>
@@ -889,7 +953,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -915,7 +979,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Jiffy Lube Live" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -941,7 +1005,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -965,7 +1029,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -995,7 +1059,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -1019,7 +1083,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Thu</div>
@@ -1048,13 +1112,13 @@
     </ul>
   </section>
   
-  <section class="mb-8">
+  <section class="mb-8 month-section">
     <h2 class="text-xl font-semibold text-gray-300 mb-4 border-b border-gray-800 pb-2">
       August 2026
     </h2>
     <ul class="space-y-3">
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -1084,7 +1148,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Nationals Park" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Mon</div>
@@ -1110,7 +1174,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Nationals Park" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -1140,16 +1204,40 @@
         </div>
       </li>
     
+      <li data-venue="The Anthem" class="bg-gray-900 rounded-lg p-4">
+        <div class="flex gap-4 items-start">
+          <div class="text-center min-w-[56px] pt-1">
+            <div class="text-xs uppercase text-gray-500">Mon</div>
+            <div class="text-2xl font-bold leading-none mt-1">24 Aug</div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-lg leading-tight">Labrinth</div>
+            <div class="text-sm text-gray-400 mt-0.5">The Anthem</div>
+            
+            <div class="mt-2 flex flex-wrap gap-1">
+            
+              <span class="text-xs px-2 py-0.5 rounded-full bg-green-900/60 text-green-200">
+                Labrinth
+              </span>
+            
+            </div>
+            
+            <a href="https://www.ticketmaster.com/labrinth-the-undoing-tour-presented-by-washington-district-of-columbia-08-24-2026/event/15006491AB349B0C" target="_blank" rel="noopener" class="text-sm text-indigo-400 hover:underline mt-2 inline-block">Tickets →</a>
+            
+          </div>
+        </div>
+      </li>
+    
     </ul>
   </section>
   
-  <section class="mb-8">
+  <section class="mb-8 month-section">
     <h2 class="text-xl font-semibold text-gray-300 mb-4 border-b border-gray-800 pb-2">
       September 2026
     </h2>
     <ul class="space-y-3">
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -1175,7 +1263,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="9:30 Club" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -1199,7 +1287,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Jiffy Lube Live" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Tue</div>
@@ -1225,7 +1313,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Jiffy Lube Live" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Wed</div>
@@ -1251,7 +1339,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Wolf Trap" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Thu</div>
@@ -1277,7 +1365,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Anthem" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Thu</div>
@@ -1303,7 +1391,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Merriweather Post Pavilion" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -1327,7 +1415,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Capital One Arena" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sat</div>
@@ -1356,13 +1444,13 @@
     </ul>
   </section>
   
-  <section class="mb-8">
+  <section class="mb-8 month-section">
     <h2 class="text-xl font-semibold text-gray-300 mb-4 border-b border-gray-800 pb-2">
       October 2026
     </h2>
     <ul class="space-y-3">
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="Capital One Arena" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Fri</div>
@@ -1392,7 +1480,7 @@
         </div>
       </li>
     
-      <li class="bg-gray-900 rounded-lg p-4">
+      <li data-venue="The Anthem" class="bg-gray-900 rounded-lg p-4">
         <div class="flex gap-4 items-start">
           <div class="text-center min-w-[56px] pt-1">
             <div class="text-xs uppercase text-gray-500">Sun</div>
@@ -1426,9 +1514,60 @@
   </section>
   
 
+  <p id="empty-state" class="text-center text-gray-500 py-8 hidden">
+    No venues selected. Tick one above to see events.
+  </p>
+
   <footer class="text-xs text-gray-600 mt-12 pt-4 border-t border-gray-900">
     Sources: Ticketmaster Discovery API, Black Cat scrape. Matching is exact-name against Spotify liked tracks after normalization.
   </footer>
 </main>
+
+<script>
+(() => {
+  const STORAGE_KEY = "concerts-venue-filter-v1";
+  const checkboxes = document.querySelectorAll("input.venue-filter");
+  const events = document.querySelectorAll("li[data-venue]");
+  const months = document.querySelectorAll(".month-section");
+  const countEl = document.getElementById("visible-count");
+  const emptyEl = document.getElementById("empty-state");
+
+  const stored = (() => {
+    try { return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "null")); }
+    catch { return null; }
+  })();
+  if (stored) {
+    checkboxes.forEach(c => { c.checked = stored.has(c.value); });
+  }
+
+  function apply() {
+    const selected = new Set(
+      Array.from(checkboxes).filter(c => c.checked).map(c => c.value)
+    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...selected]));
+
+    let visible = 0;
+    events.forEach(li => {
+      const show = selected.has(li.dataset.venue);
+      li.hidden = !show;
+      if (show) visible++;
+    });
+    months.forEach(sec => {
+      sec.hidden = !sec.querySelector("li:not([hidden])");
+    });
+    countEl.textContent = visible;
+    emptyEl.classList.toggle("hidden", visible > 0 || selected.size > 0);
+  }
+
+  checkboxes.forEach(c => c.addEventListener("change", apply));
+  document.getElementById("select-all").addEventListener("click", () => {
+    checkboxes.forEach(c => c.checked = true); apply();
+  });
+  document.getElementById("select-none").addEventListener("click", () => {
+    checkboxes.forEach(c => c.checked = false); apply();
+  });
+  apply();
+})();
+</script>
 </body>
 </html>
