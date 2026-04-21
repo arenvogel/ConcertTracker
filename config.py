@@ -12,7 +12,8 @@ HORIZON_DAYS = 180
 # Black Cat is independent and not on Ticketmaster, so it has its own scraper.
 TICKETMASTER_VENUES = [
     ("Jiffy Lube Live", "KovZpZAEk6JA"),
-    ("Wolf Trap", "KovZpZAtvJeA"),
+    ("Wolf Trap", "KovZpZAEetJA"),   # Filene Center (main amphitheater)
+    ("Wolf Trap", "ZFr9jZea1F"),     # The Barns at Wolf Trap
     ("Capital One Arena", "KovZpaKuJe"),
     ("Nationals Park", "KovZpZA1J67A"),
     ("Northwest Stadium", "KovZpZAJ6kEA"),
