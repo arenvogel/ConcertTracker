@@ -64,9 +64,15 @@
               </span>
             {% endfor %}
             </div>
-            {% if ev.url %}
-            <a href="{{ ev.url }}" target="_blank" rel="noopener" class="text-sm text-indigo-400 hover:underline mt-2 inline-block">Tickets →</a>
+            {% if ev.on_sale_label %}
+            <div class="text-xs text-amber-400/90 mt-2">🎟 {{ ev.on_sale_label }}</div>
             {% endif %}
+            <div class="mt-2 flex flex-wrap items-center gap-3">
+            {% if ev.url %}
+              <a href="{{ ev.url }}" target="_blank" rel="noopener" class="text-sm text-indigo-400 hover:underline">Tickets →</a>
+            {% endif %}
+              <a href="{{ ev.email_url }}" class="text-sm text-pink-400 hover:underline">✉ Email Jules</a>
+            </div>
           </div>
         </div>
       </li>
