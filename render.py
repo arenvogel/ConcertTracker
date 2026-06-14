@@ -32,10 +32,20 @@ def _format_month(key: str) -> str:
     return datetime.strptime(key, "%Y-%m").strftime("%B %Y")
 
 
-def _date_label(iso: str | None) -> dict:
+def _parse_date(iso: str | None):
+    """Parse an ISO 'YYYY-MM-DD' date, or None if missing/malformed."""
     if not iso:
+        return None
+    try:
+        return datetime.strptime(iso, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+
+def _date_label(iso: str | None) -> dict:
+    d = _parse_date(iso)
+    if not d:
         return {"dow": "—", "day": "—"}
-    d = datetime.strptime(iso, "%Y-%m-%d").date()
     return {"dow": d.strftime("%a"), "day": d.strftime("%-d %b")}
 
 
@@ -45,7 +55,7 @@ def _on_sale_label(raw: str | None) -> str | None:
     when unknown so the row can omit the line."""
     if not raw:
         return None
-    text = raw.replace("Z", "+00:00")
+    text = raw[:-1] + "+00:00" if raw.endswith("Z") else raw
     try:
         dt = datetime.fromisoformat(text)
     except ValueError:
@@ -67,8 +77,8 @@ def _email_url(ev: dict) -> str:
         lines.append("with " + ", ".join(ev["supports"]))
     lines.append("")
     lines.append(f"Venue: {ev['venue']}")
-    if ev.get("date"):
-        d = datetime.strptime(ev["date"], "%Y-%m-%d").date()
+    d = _parse_date(ev.get("date"))
+    if d:
         when = d.strftime("%A, %-d %B %Y")
         if ev.get("time"):
             when += f" at {ev['time']}"
