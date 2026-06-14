@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 from icalendar import Calendar, Event as IcsEvent
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
 
 from config import OUTPUT_DIR, ROOT
 
@@ -15,7 +15,10 @@ EMAIL_TO = "julessofo@gmail.com"
 
 env = Environment(
     loader=FileSystemLoader(str(ROOT / "templates")),
-    autoescape=select_autoescape(["html"]),
+    # Always escape: the only template (index.html.j2) renders untrusted,
+    # scraped event names. select_autoescape() keys off the file extension
+    # and would return False for the ".j2" suffix, leaving output unescaped.
+    autoescape=True,
 )
 
 
