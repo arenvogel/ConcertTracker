@@ -6,7 +6,7 @@ CACHE_DIR = ROOT / ".cache"
 
 TZ = "America/New_York"
 
-HORIZON_DAYS = 180
+HORIZON_DAYS = 365
 
 # Most venues — including the IMP clubs — are fully indexed by Ticketmaster.
 # Black Cat is independent and not on Ticketmaster, so it has its own scraper.
@@ -22,4 +22,5 @@ TICKETMASTER_VENUES = [
     ("Merriweather Post Pavilion", "KovZpZA1JkvA"),
     ("Lincoln Theatre", "KovZpZAFk6EA"),
     ("The Atlantis", "KovZ917AinI"),
+    ("Echostage", "KovZpZAadt7A"),
 ]
