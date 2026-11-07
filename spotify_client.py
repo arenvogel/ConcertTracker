@@ -11,11 +11,15 @@ TOKEN_URL = "https://accounts.spotify.com/api/token"
 API_BASE = "https://api.spotify.com/v1"
 
 
+class SpotifyAuthError(RuntimeError):
+    """The refresh token is missing, revoked, or expired: needs a re-login."""
+
+
 def _get_access_token() -> str:
     refresh_token = os.environ.get("SPOTIFY_REFRESH_TOKEN")
     if not refresh_token:
-        raise RuntimeError(
-            "SPOTIFY_REFRESH_TOKEN not set. Run `python auth_spotify.py` first."
+        raise SpotifyAuthError(
+            "SPOTIFY_REFRESH_TOKEN not set"
         )
     r = requests.post(
         TOKEN_URL,
@@ -26,6 +30,15 @@ def _get_access_token() -> str:
         ),
         timeout=15,
     )
+    if r.status_code in (400, 401):
+        try:
+            err = r.json()
+        except ValueError:
+            err = {}
+        if err.get("error") in ("invalid_grant", "invalid_client"):
+            raise SpotifyAuthError(
+                err.get("error_description") or err.get("error")
+            )
     if not r.ok:
         raise RuntimeError(f"Spotify token refresh failed ({r.status_code}): {r.text}")
     return r.json()["access_token"]

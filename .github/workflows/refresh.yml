@@ -22,6 +22,8 @@ jobs:
       SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
       SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
       SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_CHANNEL: C0BAF8NK31U   # #concerts
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -33,6 +35,16 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: docs
+      - name: Slack alert (fallback)
+        if: failure() && hashFiles('.alert_sent') == ''
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          [ -z "$SLACK_BOT_TOKEN" ] && exit 0
+          curl -sS -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer $SLACK_BOT_TOKEN" -H "Content-Type: application/json; charset=utf-8" \
+            -d "{\"channel\":\"C0BAF8NK31U\",\"unfurl_links\":false,\"text\":\":x: *Concert Tracker refresh failed* <$RUN_URL|View run logs>\"}"
 
   deploy:
     needs: build
@@ -43,3 +55,13 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+      - name: Slack alert (fallback)
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          [ -z "$SLACK_BOT_TOKEN" ] && exit 0
+          curl -sS -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer $SLACK_BOT_TOKEN" -H "Content-Type: application/json; charset=utf-8" \
+            -d "{\"channel\":\"C0BAF8NK31U\",\"unfurl_links\":false,\"text\":\":x: *Concert Tracker deploy failed* <$RUN_URL|View run logs>\"}"
