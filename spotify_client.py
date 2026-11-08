@@ -1,6 +1,7 @@
 """Spotify client: refresh-token flow + liked-tracks artist extraction."""
 
 import os
+import time
 
 import requests
 from dotenv import load_dotenv
@@ -44,6 +45,28 @@ def _get_access_token() -> str:
     return r.json()["access_token"]
 
 
+def _get_with_retry(url: str, headers: dict, attempts: int = 5) -> requests.Response:
+    """GET with backoff on transient Spotify errors (429 / 5xx / network)."""
+    for i in range(attempts):
+        try:
+            r = requests.get(url, headers=headers, timeout=30)
+        except requests.RequestException:
+            if i == attempts - 1:
+                raise
+        else:
+            if r.status_code != 429 and r.status_code < 500:
+                r.raise_for_status()
+                return r
+            if i == attempts - 1:
+                r.raise_for_status()
+            wait = int(r.headers.get("Retry-After", 0) or 0)
+            if wait:
+                time.sleep(min(wait, 60))
+                continue
+        time.sleep(2 ** i)
+    raise RuntimeError("unreachable")
+
+
 def fetch_liked_artists() -> set[str]:
     """Paginate through the user's saved tracks and return unique artist names."""
     token = _get_access_token()
@@ -51,8 +74,7 @@ def fetch_liked_artists() -> set[str]:
     artists: set[str] = set()
     url = f"{API_BASE}/me/tracks?limit=50"
     while url:
-        r = requests.get(url, headers=headers, timeout=30)
-        r.raise_for_status()
+        r = _get_with_retry(url, headers)
         data = r.json()
         for item in data["items"]:
             for artist in item["track"]["artists"]:
