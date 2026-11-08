@@ -19,9 +19,19 @@ def dedupe(events: list[dict]) -> list[dict]:
     seen: set = set()
     out: list[dict] = []
     for ev in events:
-        keys = {("id", ev.get("source"), ev.get("source_event_id")),
-                ("show", normalize(ev.get("venue", "")), ev.get("date"),
-                 normalize(ev.get("headliner", "")))}
+        keys = set()
+        # Only Ticketmaster IDs are unique; Black Cat's "ID" is a link URL
+        # that several shows can share.
+        if ev.get("source") == "ticketmaster" and ev.get("source_event_id"):
+            keys.add(("id", ev.get("source"), ev["source_event_id"]))
+        venue = normalize(ev.get("venue") or "")
+        headliner = normalize(ev.get("headliner") or "")
+        if ev.get("date") and venue and headliner:
+            # Time is part of the key so early/late shows on one night survive.
+            keys.add(("show", venue, ev["date"], ev.get("time"), headliner))
+        if not keys:
+            out.append(ev)
+            continue
         if keys & seen:
             continue
         seen |= keys

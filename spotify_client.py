@@ -59,7 +59,10 @@ def _get_with_retry(url: str, headers: dict, attempts: int = 5) -> requests.Resp
                 return r
             if i == attempts - 1:
                 r.raise_for_status()
-            wait = int(r.headers.get("Retry-After", 0) or 0)
+            try:
+                wait = int(float(r.headers.get("Retry-After") or 0))
+            except ValueError:
+                wait = 0
             if wait:
                 time.sleep(min(wait, 60))
                 continue
