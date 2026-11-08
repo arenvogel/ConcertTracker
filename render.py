@@ -3,7 +3,7 @@
 import itertools
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, quote_plus
 
 from icalendar import Calendar, Event as IcsEvent
 from jinja2 import Environment, FileSystemLoader
@@ -66,6 +66,12 @@ def _on_sale_label(raw: str | None) -> str | None:
     return f"On sale {on_sale.strftime('%-d %b %Y')}"
 
 
+def _setlist_url(artist: str) -> str:
+    """setlist.fm search for an artist (no API key needed; the artist page
+    itself needs a MusicBrainz ID we don't have)."""
+    return f"https://www.setlist.fm/search?query={quote_plus(artist)}"
+
+
 def _email_url(ev: dict) -> str:
     """A mailto: link that pre-fills an email to EMAIL_TO with show details."""
     subject = f"Concert: {ev['headliner']} @ {ev['venue']}"
@@ -101,6 +107,9 @@ def render_html(events: list[dict], total_scanned: int, out_path: Path) -> None:
         ev["date_label"] = _date_label(ev.get("date"))
         ev["on_sale_label"] = _on_sale_label(ev.get("on_sale_at"))
         ev["email_url"] = _email_url(ev)
+        for m in ev.get("matches", []):
+            if m.get("name"):
+                m["setlist_url"] = _setlist_url(m["name"])
 
     grouped = [
         (_format_month(k), list(g))

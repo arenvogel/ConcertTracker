@@ -57,21 +57,21 @@
             {% if ev.supports %}
             <div class="text-xs text-gray-500 mt-1 truncate">with {{ ev.supports | join(', ') }}</div>
             {% endif %}
-            <div class="mt-2 flex flex-wrap gap-1">
+            <div class="mt-2 flex flex-wrap gap-2">
             {% for m in ev.matches %}
-              <span class="text-xs px-2 py-0.5 rounded-full {% if m.role == 'headliner' %}bg-green-900/60 text-green-200{% else %}bg-blue-900/60 text-blue-200{% endif %}">
-                {{ m.name }}{% if m.role == 'support' %} · opener{% endif %}
-              </span>
+              <a href="{{ m.setlist_url }}" target="_blank" rel="noopener" title="{{ m.name }} setlists on setlist.fm" aria-label="{{ m.name }}{% if m.role == 'support' %} (opener){% endif %} setlists on setlist.fm (opens in new tab)" class="text-xs px-2.5 py-1 rounded-full hover:ring-1 hover:brightness-125 transition {% if m.role == 'headliner' %}bg-green-900/60 text-green-200 hover:ring-green-400/60{% else %}bg-blue-900/60 text-blue-200 hover:ring-blue-400/60{% endif %}">
+                {{ m.name }}{% if m.role == 'support' %} · opener{% endif %} <span aria-hidden="true" class="opacity-80">↗</span>
+              </a>
             {% endfor %}
             </div>
             {% if ev.on_sale_label %}
             <div class="text-xs text-amber-400/90 mt-2">🎟 {{ ev.on_sale_label }}</div>
             {% endif %}
-            <div class="mt-2 flex flex-wrap items-center gap-3">
+            <div class="mt-2 flex flex-wrap items-center gap-4">
             {% if ev.url %}
-              <a href="{{ ev.url }}" target="_blank" rel="noopener" class="text-sm text-indigo-400 hover:underline">Tickets →</a>
+              <a href="{{ ev.url }}" target="_blank" rel="noopener" class="text-sm text-indigo-400 hover:underline py-1">Tickets ↗</a>
             {% endif %}
-              <a href="{{ ev.email_url }}" class="text-sm text-pink-400 hover:underline">✉ Email Jules</a>
+              <a href="{{ ev.email_url }}" class="text-sm text-pink-400 hover:underline py-1">✉ Email Jules</a>
             </div>
           </div>
         </div>
@@ -92,26 +92,26 @@
 
 <script>
 (() => {
-  const STORAGE_KEY = "concerts-venue-filter-v1";
+  // Stores the venues the viewer turned OFF, so venues added later show by default.
+  const STORAGE_KEY = "concerts-venue-hidden-v2";
   const checkboxes = document.querySelectorAll("input.venue-filter");
   const events = document.querySelectorAll("li[data-venue]");
   const months = document.querySelectorAll(".month-section");
   const countEl = document.getElementById("visible-count");
   const emptyEl = document.getElementById("empty-state");
 
-  const stored = (() => {
-    try { return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "null")); }
-    catch { return null; }
+  const hidden = (() => {
+    try { return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")); }
+    catch { return new Set(); }
   })();
-  if (stored) {
-    checkboxes.forEach(c => { c.checked = stored.has(c.value); });
-  }
+  checkboxes.forEach(c => { c.checked = !hidden.has(c.value); });
 
   function apply() {
     const selected = new Set(
       Array.from(checkboxes).filter(c => c.checked).map(c => c.value)
     );
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...selected]));
+    const off = Array.from(checkboxes).filter(c => !c.checked).map(c => c.value);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(off)); } catch {}
 
     let visible = 0;
     events.forEach(li => {
@@ -123,7 +123,8 @@
       sec.hidden = !sec.querySelector("li:not([hidden])");
     });
     countEl.textContent = visible;
-    emptyEl.classList.toggle("hidden", visible > 0 || selected.size > 0);
+    // Only when the viewer filtered everything out; an empty feed isn't "no venues selected".
+    emptyEl.classList.toggle("hidden", visible > 0 || events.length === 0);
   }
 
   checkboxes.forEach(c => c.addEventListener("change", apply));

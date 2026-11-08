@@ -18,7 +18,7 @@ def normalize(name: str) -> str:
 
 _SPLIT_RE = re.compile(
     r"\s*(?:"
-    r"\bwith\b|\bfeat\.?\b|\bft\.?\b|\bw/\b|\bvs\.?\b|\band\b|"
+    r"\bwith\b|\bfeat\.?(?!\w)|\bft\.?(?!\w)|\bw/|\bvs\.?\b|\band\b|"
     r"&|,|/|\+|\s-\s|:"
     r")\s*",
     re.IGNORECASE,
